@@ -1,4 +1,18 @@
 #!/usr/bin/env python3
+# =========================================================
+# [脚本说明]
+# 用途：高性能主训练脚本（深度残差 1D-CNN + SE 注意力），同时支持推理。
+# 输入：1. 设置随机种子与基础评估函数（MAE/RMSE/MaxAE）。
+# 输出：2. `build_file_level_split` 依据 `Filename` 做文件级切分。
+# =========================================================
+
+# =========================================================
+# [????]
+# ???????????????? 1D-CNN + SE ????
+# ???dataset_distill.npz + grouped_dataset_metadata.csv?
+# ?????/???????????? CSV?
+# =========================================================
+
 """
 High-performance 1D-CNN student training for deep-study.
 
@@ -351,6 +365,14 @@ def train(args: argparse.Namespace) -> None:
 
     npz_path = Path(args.npz)
     meta_path = Path(args.meta)
+    if not meta_path.exists():
+        alt_meta = Path("dataset_distill_meta.csv")
+        if str(args.meta) == "grouped_dataset_metadata.csv" and alt_meta.exists():
+            print(
+                "[INFO] Metadata CSV not found at grouped_dataset_metadata.csv; "
+                "fallback to dataset_distill_meta.csv"
+            )
+            meta_path = alt_meta
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -603,6 +625,14 @@ def infer(args: argparse.Namespace) -> None:
     ckpt_path = Path(args.checkpoint)
     npz_path = Path(args.npz)
     meta_path = Path(args.meta)
+    if not meta_path.exists():
+        alt_meta = Path("dataset_distill_meta.csv")
+        if str(args.meta) == "grouped_dataset_metadata.csv" and alt_meta.exists():
+            print(
+                "[INFO] Metadata CSV not found at grouped_dataset_metadata.csv; "
+                "fallback to dataset_distill_meta.csv"
+            )
+            meta_path = alt_meta
 
     if not ckpt_path.exists():
         raise FileNotFoundError(f"Checkpoint not found: {ckpt_path}")
@@ -676,7 +706,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_train = sub.add_parser("train", help="Train model")
     p_train.add_argument("--npz", type=str, default="dataset_distill.npz")
-    p_train.add_argument("--meta", type=str, default="grouped_dataset_metadata.csv")
+    p_train.add_argument("--meta", type=str, default="dataset_distill_meta.csv")
     p_train.add_argument("--out-dir", type=str, default="runs/attention_res1d")
 
     p_train.add_argument("--seed", type=int, default=42)
@@ -716,7 +746,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_infer = sub.add_parser("infer", help="Run inference")
     p_infer.add_argument("--checkpoint", type=str, required=True)
     p_infer.add_argument("--npz", type=str, default="dataset_distill.npz")
-    p_infer.add_argument("--meta", type=str, default="grouped_dataset_metadata.csv")
+    p_infer.add_argument("--meta", type=str, default="dataset_distill_meta.csv")
     p_infer.add_argument("--batch-size", type=int, default=256)
     p_infer.add_argument("--save-csv", type=str, default="")
 
