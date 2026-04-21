@@ -12,8 +12,24 @@ Design rationale:
 4. Light grid and thin zero-reference line avoid overpowering data.
 
 ## Recommended manuscript placement
-- Main text: Fig.1 (position error curves), Fig.2 (ECDF+boxplot), Fig.3 (if latency available).
-- Optional/supplementary: Fig.4 grouped bars if space is limited.
+- Main text (final freeze): Fig.1 double-column + Fig.2 double-column.
+- Main text (conditional): Fig.3 only when traceable latency inputs are available for Teacher/Student/Plain FFT.
+- Supplementary: Fig.4 (single-column preferred for compact appendix layout; keep double-column as reserve only).
+
+## Symbol meaning
+- Fig.1/2/3 line/marker encoding:
+  - Teacher = deep blue, solid, circle
+  - Student = brown-orange, dashed, square
+  - Plain FFT = dark green, dotted, triangle
+- Fig.2 double-column panel (b): `Plain FFT` is split as `Plain` + `FFT` for readability.
+- Fig.4 bar textures:
+  - // = MAE
+  - \ = RMSE
+  - .. = MaxAE
+- Fig.2 boxplot elements:
+  - median line = central tendency
+  - box = interquartile range (Q1--Q3)
+  - whiskers = non-outlier spread (fliers hidden)
 
 ## Old multi-baseline figures
 - `benchmark_error_plot.png` and `benchmark_boxplot_or_hist.png` are not recommended for the main text

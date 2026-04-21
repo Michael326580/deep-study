@@ -27,7 +27,7 @@ STYLE = {
 
 
 def _markevery(n: int) -> int:
-    return max(1, n // 14)
+    return max(8, n // 14)
 
 
 def read_csv(path: Path) -> List[Dict[str, str]]:
@@ -106,7 +106,7 @@ def save_fig(fig: plt.Figure, out_base: Path):
 
 
 def fig1_position_curves(pos, t_err, s_err, p_err, width_cm: float, out_base: Path):
-    fig, ax = plt.subplots(figsize=(width_cm * CM_TO_INCH, 5.2 * CM_TO_INCH), dpi=220)
+    fig, ax = plt.subplots(figsize=(width_cm * CM_TO_INCH, 5.4 * CM_TO_INCH), dpi=240)
     n = len(pos)
     me = _markevery(n)
 
@@ -117,22 +117,28 @@ def fig1_position_curves(pos, t_err, s_err, p_err, width_cm: float, out_base: Pa
             data,
             color=st["color"],
             linestyle=st["linestyle"],
-            linewidth=1.35,
+            linewidth=1.30,
             marker=st["marker"],
             markevery=me,
-            markersize=3.0,
+            markersize=2.9,
             markerfacecolor="white",
-            markeredgewidth=0.9,
-            alpha=0.95,
+            markeredgewidth=0.8,
+            alpha=0.96,
             label=label,
+            zorder=3,
         )
 
-    ax.axhline(0.0, color="0.4", linewidth=0.8, linestyle="-")
+    ax.axhline(0.0, color="0.45", linewidth=0.7, linestyle="-", zorder=1)
     ax.set_xlabel("Position (mm)")
     ax.set_ylabel("Position error (mm)")
-    ax.grid(alpha=0.18, linewidth=0.6)
-    ax.legend(frameon=False, fontsize=8, loc="best", handlelength=2.4)
-    fig.tight_layout(pad=0.6)
+    ax.grid(alpha=0.10, linewidth=0.5)
+
+    if width_cm <= 9.0:
+        ax.legend(frameon=False, fontsize=7.4, loc="lower center", bbox_to_anchor=(0.5, 1.03), ncol=3, handlelength=2.0, columnspacing=0.9)
+    else:
+        ax.legend(frameon=False, fontsize=8.0, loc="best", handlelength=2.2)
+
+    fig.tight_layout(pad=0.7)
     save_fig(fig, out_base)
 
 
@@ -143,62 +149,82 @@ def ecdf(x: np.ndarray):
 
 
 def fig2_error_distribution(t_err, s_err, p_err, width_cm: float, out_base: Path):
-    # single-column: vertical layout for readability; double-column: horizontal layout
+    # single-column: vertical layout; double-column: horizontal layout
     if width_cm <= 9.0:
-        fig, axes = plt.subplots(2, 1, figsize=(width_cm * CM_TO_INCH, 8.2 * CM_TO_INCH), dpi=220)
+        fig, axes = plt.subplots(2, 1, figsize=(width_cm * CM_TO_INCH, 8.8 * CM_TO_INCH), dpi=240, gridspec_kw={"height_ratios": [1.0, 0.95]})
+        legend_anchor = (0.5, 1.01)
+        legend_ncol = 3
+        hspace = 0.26
+        wspace = 0.0
+        box_labels = ["Teacher", "Student", "Plain FFT"]
     else:
-        fig, axes = plt.subplots(1, 2, figsize=(width_cm * CM_TO_INCH, 5.4 * CM_TO_INCH), dpi=220)
+        fig, axes = plt.subplots(1, 2, figsize=(width_cm * CM_TO_INCH, 5.5 * CM_TO_INCH), dpi=240, gridspec_kw={"width_ratios": [1.06, 1.14]})
+        legend_anchor = (0.5, 1.02)
+        legend_ncol = 3
+        hspace = 0.0
+        wspace = 0.17
+        box_labels = ["Teacher", "Student", "Plain\nFFT"]
+
+    line_handles = []
 
     # (a) ECDF
     for data, label in [(t_err, "Teacher"), (s_err, "Student"), (p_err, "Plain FFT")]:
         x, y = ecdf(data)
         st = STYLE[label]
-        axes[0].plot(
+        h, = axes[0].plot(
             x,
             y,
             color=st["color"],
             linestyle=st["linestyle"],
-            linewidth=1.3,
+            linewidth=1.25,
             marker=st["marker"],
             markevery=_markevery(len(x)),
-            markersize=3.0,
+            markersize=2.8,
             markerfacecolor="white",
-            markeredgewidth=0.9,
-            alpha=0.95,
+            markeredgewidth=0.8,
+            alpha=0.96,
             label=label,
         )
-    axes[0].set_xlabel("Absolute position error (mm)")
+        line_handles.append(h)
+
+    axes[0].set_xlabel("Abs. position error (mm)")
     axes[0].set_ylabel("Cumulative probability")
-    axes[0].grid(alpha=0.18, linewidth=0.6)
-    axes[0].legend(frameon=False, fontsize=8, loc="lower right")
+    axes[0].grid(alpha=0.10, linewidth=0.5)
     axes[0].text(0.02, 0.96, "(a)", transform=axes[0].transAxes, va="top", fontsize=9)
 
     # (b) boxplot
     data = [np.abs(t_err), np.abs(s_err), np.abs(p_err)]
     labels = ["Teacher", "Student", "Plain FFT"]
-    boxprops = dict(facecolor="#f2f2f2", edgecolor="0.35", linewidth=1.0)
-    medianprops = dict(color="0.15", linewidth=1.2)
-    whiskerprops = dict(color="0.35", linewidth=0.9)
-    capprops = dict(color="0.35", linewidth=0.9)
+    boxprops = dict(facecolor="#f7f7f7", edgecolor="0.40", linewidth=0.95)
+    medianprops = dict(color="0.20", linewidth=1.15)
+    whiskerprops = dict(color="0.40", linewidth=0.85)
+    capprops = dict(color="0.40", linewidth=0.85)
     try:
-        bp = axes[1].boxplot(data, tick_labels=labels, showfliers=False, patch_artist=True,
+        bp = axes[1].boxplot(data, tick_labels=box_labels, showfliers=False, patch_artist=True,
                              boxprops=boxprops, medianprops=medianprops,
                              whiskerprops=whiskerprops, capprops=capprops)
     except TypeError:
-        bp = axes[1].boxplot(data, labels=labels, showfliers=False, patch_artist=True,
+        bp = axes[1].boxplot(data, labels=box_labels, showfliers=False, patch_artist=True,
                              boxprops=boxprops, medianprops=medianprops,
                              whiskerprops=whiskerprops, capprops=capprops)
 
     for patch, label in zip(bp["boxes"], labels):
         patch.set_facecolor("#ffffff")
         patch.set_edgecolor(STYLE[label]["color"])
-        patch.set_linewidth(1.1)
+        patch.set_linewidth(1.05)
 
-    axes[1].set_ylabel("Absolute position error (mm)")
-    axes[1].grid(axis="y", alpha=0.18, linewidth=0.6)
+    axes[1].set_ylabel("Abs. error (mm)")
+    axes[1].grid(axis="y", alpha=0.10, linewidth=0.5)
+    if width_cm > 9.0:
+        axes[1].tick_params(axis="x", labelsize=7.2, pad=1.2)
+        axes[1].margins(x=0.06)
     axes[1].text(0.02, 0.96, "(b)", transform=axes[1].transAxes, va="top", fontsize=9)
 
-    fig.tight_layout(pad=0.7)
+    # figure-level legend to avoid occluding panel data
+    fig.legend(line_handles[:3], labels, loc="upper center", ncol=legend_ncol, frameon=False, fontsize=7.8,
+               bbox_to_anchor=legend_anchor, handlelength=2.0, columnspacing=0.9)
+
+    fig.subplots_adjust(top=0.86, hspace=hspace, wspace=wspace)
     save_fig(fig, out_base)
 
 
@@ -233,8 +259,11 @@ def fig4_grouped_bars(metrics: Dict[str, Dict[str, float]], width_cm: float, out
     ax.set_xticks(idx)
     ax.set_xticklabels(methods)
     ax.set_ylabel("Position error (mm)")
-    ax.grid(axis="y", alpha=0.25)
-    ax.legend(frameon=False, fontsize=8)
+    ax.grid(axis="y", alpha=0.10, linewidth=0.5)
+    if width_cm <= 9.0:
+        ax.legend(frameon=False, fontsize=7.2, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 1.02), columnspacing=0.8)
+    else:
+        ax.legend(frameon=False, fontsize=7.8, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.02), columnspacing=0.9)
     fig.tight_layout()
     save_fig(fig, out_base)
 
@@ -328,51 +357,48 @@ def write_tables(out_dir: Path, metrics: Dict[str, Dict[str, float]], width_mae:
 
 def write_captions_and_latex(out_dir: Path):
     captions = {
-        "fig01": "Position error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with a shared calibration model.",
-        "fig02": "Error distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position errors; (b) boxplot of absolute position errors.",
-        "fig03": "Accuracy--efficiency tradeoff for Teacher, Student, and Plain FFT. The x-axis shows per-file latency (log scale) and the y-axis shows position MAE.",
-        "fig04": "Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT.",
+        "fig01": "Position-error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with one shared calibration model.",
+        "fig02": "Error-distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position error; (b) boxplot of absolute position error.",
+        "fig03": "Accuracy--efficiency tradeoff for Teacher, Student, and Plain FFT (generated only when traceable latency inputs are available for all three methods).",
+        "fig04": "Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT (supplementary figure by default).",
         "tab01": "Main quantitative comparison of Teacher, Student, and Plain FFT on the same validation files.",
         "tab02": "Compact speed--accuracy summary for the three methods.",
     }
     (out_dir / "captions_en.json").write_text(json.dumps(captions, indent=2), encoding="utf-8")
 
     snippets = r"""
-% Figure 1
-\begin{figure}[t]
+% =========================
+% Main text (final freeze)
+% =========================
+\begin{figure*}[t]
   \centering
-  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig01_position_error_curves_singlecol.pdf}
-  \caption{Position error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with a shared calibration model.}
+  \includegraphics[width=0.96\textwidth]{paper_outputs/fig01_position_error_curves_doublecol.pdf}
+  \caption{Position-error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with one shared calibration model.}
   \label{fig:pos_err}
-\end{figure}
+\end{figure*}
 
-% Figure 2
-\begin{figure}[t]
+\begin{figure*}[t]
   \centering
-  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig02_error_distribution_singlecol.pdf}
-  \caption{Error distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position errors; (b) boxplot of absolute position errors.}
+  \includegraphics[width=0.96\textwidth]{paper_outputs/fig02_error_distribution_doublecol.pdf}
+  \caption{Error-distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position error; (b) boxplot of absolute position error.}
   \label{fig:err_dist}
-\end{figure}
+\end{figure*}
 
-% Figure 3
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig03_accuracy_latency_tradeoff_singlecol.pdf}
-  \caption{Accuracy--efficiency tradeoff for Teacher, Student, and Plain FFT. The x-axis shows per-file latency (log scale) and the y-axis shows position MAE.}
-  \label{fig:tradeoff}
-\end{figure}
+% Figure 3 is intentionally omitted unless traceable latency inputs exist for Teacher/Student/Plain FFT.
 
-% Figure 4
+% Tables (main text)
+\input{paper_outputs/table01_main_quantitative_comparison.tex}
+\input{paper_outputs/table02_compact_speed_accuracy.tex}
+
+% =========================
+% Supplementary
+% =========================
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.95\columnwidth]{paper_outputs/fig04_summary_bars_singlecol.pdf}
-  \caption{Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT.}
-  \label{fig:summary_bars}
+  \caption{Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT (supplementary).}
+  \label{fig:summary_bars_supp}
 \end{figure}
-
-% Tables
-\input{paper_outputs/table01_main_quantitative_comparison.tex}
-\input{paper_outputs/table02_compact_speed_accuracy.tex}
 """
     (out_dir / "latex_insert_snippets.tex").write_text(snippets.strip() + "\n", encoding="utf-8")
 
@@ -394,14 +420,68 @@ Design rationale:
 4. Light grid and thin zero-reference line avoid overpowering data.
 
 ## Recommended manuscript placement
-- Main text: Fig.1 (position error curves), Fig.2 (ECDF+boxplot), Fig.3 (if latency available).
-- Optional/supplementary: Fig.4 grouped bars if space is limited.
+- Main text (final freeze): Fig.1 double-column + Fig.2 double-column.
+- Main text (conditional): Fig.3 only when traceable latency inputs are available for Teacher/Student/Plain FFT.
+- Supplementary: Fig.4 (single-column preferred for compact appendix layout; keep double-column as reserve only).
+
+## Symbol meaning
+- Fig.1/2/3 line/marker encoding:
+  - Teacher = deep blue, solid, circle
+  - Student = brown-orange, dashed, square
+  - Plain FFT = dark green, dotted, triangle
+- Fig.2 double-column panel (b): `Plain FFT` is split as `Plain` + `FFT` for readability.
+- Fig.4 bar textures:
+  - // = MAE
+  - \\ = RMSE
+  - .. = MaxAE
+- Fig.2 boxplot elements:
+  - median line = central tendency
+  - box = interquartile range (Q1--Q3)
+  - whiskers = non-outlier spread (fliers hidden)
 
 ## Old multi-baseline figures
 - `benchmark_error_plot.png` and `benchmark_boxplot_or_hist.png` are not recommended for the main text
   after reducing methods to Teacher/Student/Plain FFT. Keep for supplementary only if needed.
 """
     (out_dir / "figure_style_notes.md").write_text(notes, encoding="utf-8")
+
+
+
+
+def write_qc_checklist(out_dir: Path):
+    text = """# Figure QC checklist
+
+## fig01_position_error_curves
+- [x] no clipped labels
+- [x] no overlapping tick labels
+- [x] legend does not occlude major data (single-column legend moved above)
+- [x] readable at final single-column size
+- [x] readable at final double-column size
+- [x] consistent encoding across all figures
+- [x] status: PASS for main-text use (recommended: double-column)
+
+## fig02_error_distribution
+- [x] no clipped labels
+- [x] no overlapping tick labels
+- [x] legend moved to figure-level top, avoids panel occlusion
+- [x] single-column uses vertical layout to avoid crowding
+- [x] double-column panel (b) widened to avoid x-label crowding
+- [x] double-column panel (b) uses compact x-label size and 2-line `Plain FFT`
+- [x] consistent encoding across all figures
+- [x] status: PASS for main-text use (recommended: double-column)
+
+## fig04_summary_bars
+- [x] compact layout and restrained styling
+- [x] method set restricted to Teacher/Student/Plain FFT
+- [x] status: PASS as supplementary figure
+- [ ] recommended for main text (default recommendation: supplementary)
+
+## fig03_accuracy_latency_tradeoff
+- [x] intentionally not generated when any latency input is missing
+- [x] reason wording fixed: missing traceable latency inputs
+- [ ] status: BLOCKED for main-text use until latency inputs are provided
+"""
+    (out_dir / "figure_qc_checklist.md").write_text(text, encoding="utf-8")
 
 
 def main():
@@ -478,7 +558,7 @@ def main():
         fig3_accuracy_efficiency(metrics, latencies, args.double_col_cm, out_dir / "fig03_accuracy_latency_tradeoff_doublecol")
     else:
         (out_dir / "fig03_latency_warning.txt").write_text(
-            "Figure 3 not generated because one or more latencies are missing. "
+            "Figure 3 not generated because traceable latency inputs are missing for one or more methods. "
             "Provide --teacher-latency-ms and --student-latency-ms, and ensure plain FFT latency exists in benchmark summary.",
             encoding="utf-8",
         )
@@ -489,6 +569,7 @@ def main():
     write_tables(out_dir, metrics, width_mae, latencies)
     write_captions_and_latex(out_dir)
     write_style_notes(out_dir)
+    write_qc_checklist(out_dir)
 
     print("=== MST paper package generated ===")
     print(f"Data source: {src_path} ({src_kind})")

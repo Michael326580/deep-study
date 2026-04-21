@@ -1,1 +1,1 @@
-Figure 3 not generated because one or more latencies are missing. Provide --teacher-latency-ms and --student-latency-ms, and ensure plain FFT latency exists in benchmark summary.
+Figure 3 not generated because traceable latency inputs are missing for one or more methods. Provide --teacher-latency-ms and --student-latency-ms, and ensure plain FFT latency exists in benchmark summary.
