@@ -1,9 +1,0 @@
-rank,method,position_rmse,position_mae,position_maxae,width_rmse_vs_teacher,latency_ms_mean,tier,failure_hint
-1,plain_fft,0.20880644491770367,0.17607411588095714,0.7148697073542394,0.05038014427098458,3.165673999997125,A_main,No explicit lag alignment; residual channel misalignment can broaden spectral peak.
-2,sinusoid_ls,0.5516471547996176,0.5389810230555449,1.015896488571883,0.12149019063295664,174.95609299998705,C_drop,Single-tone assumption may be violated by harmonics and segment boundary effects.
-3,zero_crossing,2.4319402150160307,1.750889268976,8.782024845041946,0.49531195145248225,1.1558459999969273,C_drop,Sensitive to noise/phase jitter; sign-flip counts become unstable on non-ideal sinusoidal segments.
-4,norm_xcorr_fft,2.8476353410313053,2.368996164618344,6.972472097430227,0.6082035228607063,8.05331999997179,C_drop,Normalization helps amplitude drift but still suffers periodic lag ambiguity.
-5,full_xcorr_fft,2.9228629181612695,2.443438078617619,7.12492376226038,0.6209123592889131,7.374463999990439,C_drop,Full-range lag may pick wrong cycle under periodic ambiguity (less robust than constrained PCCC).
-6,welch_periodogram,3.1427508117715175,2.8017553872610494,5.491432641237083,0.644846821946416,3.0589609999924505,C_drop,Window averaging stabilizes frequency but loses resolution if segments are short.
-7,hilbert_phase,52.23933991794517,51.55966855119732,66.67765960127474,18.96382932830526,6.992428999988078,C_drop,Requires relatively clean narrowband structure; phase unwrap noise can bias slope.
-8,autocorr_period,883.8560659904621,690.8825165513684,1147.2725039344682,17.505263018453693,6.131748999996489,C_drop,Can lock to harmonic/subharmonic peaks when waveform is distorted or truncated.
