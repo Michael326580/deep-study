@@ -1,0 +1,35 @@
+% Figure 1
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig01_position_error_curves_singlecol.pdf}
+  \caption{Position error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with a shared calibration model.}
+  \label{fig:pos_err}
+\end{figure}
+
+% Figure 2
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig02_error_distribution_singlecol.pdf}
+  \caption{Error distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position errors; (b) boxplot of absolute position errors.}
+  \label{fig:err_dist}
+\end{figure}
+
+% Figure 3
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig03_accuracy_latency_tradeoff_singlecol.pdf}
+  \caption{Accuracy--efficiency tradeoff for Teacher, Student, and Plain FFT. The x-axis shows per-file latency (log scale) and the y-axis shows position MAE.}
+  \label{fig:tradeoff}
+\end{figure}
+
+% Figure 4
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig04_summary_bars_singlecol.pdf}
+  \caption{Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT.}
+  \label{fig:summary_bars}
+\end{figure}
+
+% Tables
+\input{paper_outputs/table01_main_quantitative_comparison.tex}
+\input{paper_outputs/table02_compact_speed_accuracy.tex}

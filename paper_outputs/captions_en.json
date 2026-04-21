@@ -1,0 +1,8 @@
+{
+  "fig01": "Position error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with a shared calibration model.",
+  "fig02": "Error distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position errors; (b) boxplot of absolute position errors.",
+  "fig03": "Accuracy--efficiency tradeoff for Teacher, Student, and Plain FFT. The x-axis shows per-file latency (log scale) and the y-axis shows position MAE.",
+  "fig04": "Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT.",
+  "tab01": "Main quantitative comparison of Teacher, Student, and Plain FFT on the same validation files.",
+  "tab02": "Compact speed--accuracy summary for the three methods."
+}

@@ -1,0 +1,4 @@
+Method,Position MAE (mm),Relative speedup vs Teacher,Key note
+Teacher,0.0678,NA,Reference high-accuracy pipeline
+Student,0.1166,NA,Distilled model; near-teacher accuracy
+Plain FFT,0.1761,NA,Classical baseline without PCCC

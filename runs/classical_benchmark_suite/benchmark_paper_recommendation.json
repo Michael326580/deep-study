@@ -1,0 +1,29 @@
+{
+  "A_main": [
+    "plain_fft"
+  ],
+  "B_appendix": [],
+  "C_drop": [
+    "autocorr_period",
+    "full_xcorr_fft",
+    "hilbert_phase",
+    "norm_xcorr_fft",
+    "sinusoid_ls",
+    "welch_periodogram",
+    "zero_crossing"
+  ],
+  "teacher_student_included": [
+    "teacher",
+    "student"
+  ],
+  "method_notes": {
+    "plain_fft": "No explicit lag alignment; residual channel misalignment can broaden spectral peak.",
+    "full_xcorr_fft": "Full-range lag may pick wrong cycle under periodic ambiguity (less robust than constrained PCCC).",
+    "norm_xcorr_fft": "Normalization helps amplitude drift but still suffers periodic lag ambiguity.",
+    "welch_periodogram": "Window averaging stabilizes frequency but loses resolution if segments are short.",
+    "autocorr_period": "Can lock to harmonic/subharmonic peaks when waveform is distorted or truncated.",
+    "hilbert_phase": "Requires relatively clean narrowband structure; phase unwrap noise can bias slope.",
+    "sinusoid_ls": "Single-tone assumption may be violated by harmonics and segment boundary effects.",
+    "zero_crossing": "Sensitive to noise/phase jitter; sign-flip counts become unstable on non-ideal sinusoidal segments."
+  }
+}

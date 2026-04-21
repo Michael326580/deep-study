@@ -1,0 +1,4 @@
+Method,Width MAE (pixel),Position MAE (mm),Position RMSE (mm),Position MaxAE (mm),Latency (ms)
+Teacher,0.0000,0.0678,0.0858,0.2999,NA
+Student,0.0000,0.1166,0.1530,0.5641,NA
+Plain FFT,0.0397,0.1761,0.2088,0.7149,3.166

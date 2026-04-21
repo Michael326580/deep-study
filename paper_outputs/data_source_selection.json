@@ -1,0 +1,10 @@
+{
+  "selected_source": "runs\\classical_benchmark_suite\\benchmark_rows.csv",
+  "source_kind": "benchmark_rows",
+  "reason": "Selected highest-priority file containing Teacher/Student/Plain FFT per-sample results.",
+  "methods_kept": [
+    "Teacher",
+    "Student",
+    "Plain FFT"
+  ]
+}
