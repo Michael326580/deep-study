@@ -1,0 +1,127 @@
+{
+  "inputs": {
+    "raw_dir": "1.22",
+    "val_csv": "grouped_val_comparison.csv",
+    "teacher_csv": "fixed_results.csv",
+    "methods": [
+      "plain_fft",
+      "full_xcorr_fft",
+      "norm_xcorr_fft",
+      "welch_periodogram",
+      "autocorr_period",
+      "hilbert_phase",
+      "sinusoid_ls",
+      "zero_crossing"
+    ],
+    "files_in_val_csv": 100,
+    "files_processed": 100,
+    "files_missing_raw": 0
+  },
+  "calibration_model": {
+    "formula": "W = 1/(A*x + B) + C",
+    "A": 0.00040210602737855976,
+    "B": -0.03726642607017936,
+    "C": 0.4856491511251857,
+    "fit_source": "fixed_results.csv"
+  },
+  "teacher_position_error": {
+    "n": 100,
+    "mae": 0.06783453009441473,
+    "rmse": 0.08581600055169426,
+    "maxae": 0.299853555323665
+  },
+  "student_position_error": {
+    "n": 100,
+    "mae": 0.11655302599772767,
+    "rmse": 0.15301138266344314,
+    "maxae": 0.5641268020419261
+  },
+  "methods": {
+    "plain_fft": {
+      "width_mae_vs_teacher": 0.0397414249239235,
+      "width_rmse_vs_teacher": 0.05038014427098458,
+      "width_maxae_vs_teacher": 0.2013577356221603,
+      "position_mae": 0.17607411588095714,
+      "position_rmse": 0.20880644491770367,
+      "position_maxae": 0.7148697073542394,
+      "latency_ms_mean": 3.165673999997125,
+      "failure_hint": "No explicit lag alignment; residual channel misalignment can broaden spectral peak."
+    },
+    "full_xcorr_fft": {
+      "width_mae_vs_teacher": 0.5058919460852773,
+      "width_rmse_vs_teacher": 0.6209123592889131,
+      "width_maxae_vs_teacher": 1.6732949601984686,
+      "position_mae": 2.443438078617619,
+      "position_rmse": 2.9228629181612695,
+      "position_maxae": 7.12492376226038,
+      "latency_ms_mean": 7.374463999990439,
+      "failure_hint": "Full-range lag may pick wrong cycle under periodic ambiguity (less robust than constrained PCCC)."
+    },
+    "norm_xcorr_fft": {
+      "width_mae_vs_teacher": 0.4919801451324611,
+      "width_rmse_vs_teacher": 0.6082035228607063,
+      "width_maxae_vs_teacher": 1.6617291576283293,
+      "position_mae": 2.368996164618344,
+      "position_rmse": 2.8476353410313053,
+      "position_maxae": 6.972472097430227,
+      "latency_ms_mean": 8.05331999997179,
+      "failure_hint": "Normalization helps amplitude drift but still suffers periodic lag ambiguity."
+    },
+    "welch_periodogram": {
+      "width_mae_vs_teacher": 0.5681343693368818,
+      "width_rmse_vs_teacher": 0.644846821946416,
+      "width_maxae_vs_teacher": 1.3287612586176252,
+      "position_mae": 2.8017553872610494,
+      "position_rmse": 3.1427508117715175,
+      "position_maxae": 5.491432641237083,
+      "latency_ms_mean": 3.0589609999924505,
+      "failure_hint": "Window averaging stabilizes frequency but loses resolution if segments are short."
+    },
+    "autocorr_period": {
+      "width_mae_vs_teacher": 13.705604549367603,
+      "width_rmse_vs_teacher": 17.505263018453693,
+      "width_maxae_vs_teacher": 26.43550486328443,
+      "position_mae": 690.8825165513684,
+      "position_rmse": 883.8560659904621,
+      "position_maxae": 1147.2725039344682,
+      "latency_ms_mean": 6.131748999996489,
+      "failure_hint": "Can lock to harmonic/subharmonic peaks when waveform is distorted or truncated."
+    },
+    "hilbert_phase": {
+      "width_mae_vs_teacher": 18.88516156725997,
+      "width_rmse_vs_teacher": 18.96382932830526,
+      "width_maxae_vs_teacher": 22.81670694126732,
+      "position_mae": 51.55966855119732,
+      "position_rmse": 52.23933991794517,
+      "position_maxae": 66.67765960127474,
+      "latency_ms_mean": 6.992428999988078,
+      "failure_hint": "Requires relatively clean narrowband structure; phase unwrap noise can bias slope."
+    },
+    "sinusoid_ls": {
+      "width_mae_vs_teacher": 0.114221504342141,
+      "width_rmse_vs_teacher": 0.12149019063295664,
+      "width_maxae_vs_teacher": 0.297619535044813,
+      "position_mae": 0.5389810230555449,
+      "position_rmse": 0.5516471547996176,
+      "position_maxae": 1.015896488571883,
+      "latency_ms_mean": 174.95609299998705,
+      "failure_hint": "Single-tone assumption may be violated by harmonics and segment boundary effects."
+    },
+    "zero_crossing": {
+      "width_mae_vs_teacher": 0.35013138934517585,
+      "width_rmse_vs_teacher": 0.49531195145248225,
+      "width_maxae_vs_teacher": 1.995395223718205,
+      "position_mae": 1.750889268976,
+      "position_rmse": 2.4319402150160307,
+      "position_maxae": 8.782024845041946,
+      "latency_ms_mean": 1.1558459999969273,
+      "failure_hint": "Sensitive to noise/phase jitter; sign-flip counts become unstable on non-ideal sinusoidal segments."
+    }
+  },
+  "fairness_checks": {
+    "same_file_list_as_val_csv": true,
+    "same_segmentation_rule_for_all_methods": true,
+    "same_inverse_calibration_for_all_methods": true,
+    "no_teacher_label_used_in_classical_signal_processing": true
+  }
+}
