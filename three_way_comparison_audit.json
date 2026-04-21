@@ -1,0 +1,49 @@
+{
+  "repo": "D:\\桌面\\deep study",
+  "files_checked": {
+    "teacher_fixed": "fixed_results.csv",
+    "teacher_robust": "fft_results_robust.csv",
+    "student_val": "runs\\attention_res1d\\best_val_predictions.csv",
+    "student_full": "runs\\final_model\\ultimate_final_result.csv",
+    "grouped_compare": "grouped_val_comparison.csv",
+    "distill_npz": "dataset_distill.npz",
+    "distill_meta": "dataset_distill_meta.csv",
+    "raw_baseline_candidate": "clean_data.csv",
+    "phase_baseline_candidate": "phase_check_results.csv"
+  },
+  "checks": [
+    {
+      "name": "Student vs Teacher",
+      "feasible": true,
+      "evidence": [
+        "grouped_val_comparison.csv has teacher+student columns",
+        "runs/attention_res1d/best_val_predictions.csv has Pred_Width and True_Width"
+      ],
+      "missing": [],
+      "recommendation": "Can be used in formal experiments if split leakage is controlled and teacher source is clearly declared."
+    },
+    {
+      "name": "Student vs Non-teacher baseline",
+      "feasible": false,
+      "evidence": [
+        "clean_data.csv exists but lacks explicit ground-truth provenance columns",
+        "phase_check_results.csv exists but lacks explicit ground-truth provenance columns"
+      ],
+      "missing": [
+        "No file with explicit non-teacher ground-truth target linked to student predictions"
+      ],
+      "recommendation": "Not rigorous unless baseline labels come from an independently measured target (e.g., instrument/encoder truth) and are connected by Filename."
+    },
+    {
+      "name": "Teacher vs Independent ground truth",
+      "feasible": false,
+      "evidence": [
+        "clean_data.csv has Filename+Position_mm",
+        "linear_fit_data.csv has Filename+Position_mm",
+        "phase_check_results.csv has Filename+Position_mm"
+      ],
+      "missing": [],
+      "recommendation": "Do not claim true-ground-truth accuracy without external measurement provenance."
+    }
+  ]
+}
