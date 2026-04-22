@@ -241,7 +241,7 @@ def make_ieee_fit_figure(
 
 def main():
     parser = argparse.ArgumentParser(description="IEEE-style hyperbolic fit figure generator (T-IM ready).")
-    parser.add_argument("--csv", type=str, default="fft_results_robust.csv")
+    parser.add_argument("--csv", type=str, default="data/processed/fft_results_robust.csv")
     parser.add_argument("--xcol", type=str, default="Position_mm")
     parser.add_argument("--ycol", type=str, default="FFT_Width")
     parser.add_argument("--fence", type=float, default=2.5, help="IQR fence factor")

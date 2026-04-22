@@ -24,13 +24,13 @@ import re
 # 0. 参数设置
 # ==============================================================================
 # 新数据集路径
-DATA_FOLDER = r'D:\桌面\new learning\069date\1.22'
+DATA_FOLDER = 'data/raw/1.22'
 
 # 长度容差：如果某一段的长度偏离中位数超过 20%，就认为是坏的
 LENGTH_TOLERANCE = 0.2 
 
 # 输出文件名
-OUTPUT_FIXED_CSV = 'fixed_results.csv'
+OUTPUT_FIXED_CSV = 'data/processed/fixed_results.csv'
 
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
@@ -169,10 +169,10 @@ def fix_dataset2_errors():
     tasks = []
     
     # 读取之前生成的报告
-    if os.path.exists('failed_report.csv'):
-        tasks.append(pd.read_csv('failed_report.csv'))
-    if os.path.exists('outliers_report.csv'):
-        tasks.append(pd.read_csv('outliers_report.csv'))
+    if os.path.exists('data/processed/failed_report.csv'):
+        tasks.append(pd.read_csv('data/processed/failed_report.csv'))
+    if os.path.exists('data/processed/outliers_report.csv'):
+        tasks.append(pd.read_csv('data/processed/outliers_report.csv'))
         
     if not tasks:
         print("❌ 未找到错误报告 (failed_report.csv 或 outliers_report.csv)。")
@@ -209,8 +209,8 @@ def fix_dataset2_errors():
     # 2. 合并结果
     if fixed_results:
         # 读取原始成功结果
-        if os.path.exists('fft_results.csv'):
-            original_df = pd.read_csv('fft_results.csv')
+        if os.path.exists('data/processed/fft_results.csv'):
+            original_df = pd.read_csv('data/processed/fft_results.csv')
             # 从原始结果中删掉我们刚刚修复的这些（避免重复，用新的覆盖旧的）
             fixed_filenames = [x['Filename'] for x in fixed_results]
             original_df = original_df[~original_df['Filename'].isin(fixed_filenames)]

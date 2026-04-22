@@ -20,6 +20,7 @@ from scipy.fft import fft
 from scipy.optimize import curve_fit
 import os
 import re
+from pathlib import Path
 
 # ==============================================================================
 # 0. 全局设置
@@ -254,12 +255,13 @@ def process_batch_all(folder_path):
     # --- 1.3 保存结果 ---
     if results:
         res_df = pd.DataFrame(results).dropna()
-        res_df.to_csv('fft_results_robust.csv', index=False)
+        Path('data/processed').mkdir(parents=True, exist_ok=True)
+        res_df.to_csv('data/processed/fft_results_robust.csv', index=False)
         print(f"\n✅ 成功结果已保存: fft_results.csv (共 {len(res_df)} 条)")
     
     if failures:
         fail_df = pd.DataFrame(failures)
-        fail_df.to_csv('failed_report.csv', index=False)
+        fail_df.to_csv('data/processed/failed_report.csv', index=False)
         print(f"⚠️ {len(fail_df)} 个文件处理失败/被过滤，详情见 failed_report.csv")
     else:
         print("🎉 完美！所有文件均通过清洗。")
@@ -304,7 +306,7 @@ def fit_hyperbola_diagnostic(csv_file):
     outliers = df[~mask].copy()
     
     if not outliers.empty:
-        outliers.to_csv('outliers_report.csv', index=False)
+        outliers.to_csv('data/processed/outliers_report.csv', index=False)
         print(f"⚠️ 拟合后筛选出 {len(outliers)} 个离群点")
     
     # 3. 最终拟合
@@ -344,7 +346,8 @@ def fit_hyperbola_diagnostic(csv_file):
     ax2.grid(True, linestyle='--', alpha=0.5)
 
     plt.tight_layout()
-    plt.savefig('final_diagnostic_plot.png', dpi=150)
+    Path('results/diagnostics').mkdir(parents=True, exist_ok=True)
+    plt.savefig('results/diagnostics/final_diagnostic_plot.png', dpi=150)
     print("📸 诊断图表已生成: final_diagnostic_plot.png")
     # plt.show() 
 
@@ -353,10 +356,10 @@ def fit_hyperbola_diagnostic(csv_file):
 # ==============================================================================
 if __name__ == '__main__':
     # ⚠️ 请确认您的数据路径
-    data_folder = r'D:\桌面\new learning\069date\1.22'
+    data_folder = 'data/raw/1.22'
     
     # 1. 运行全量智能清洗与计算
     process_batch_all(data_folder)
     
     # 2. 运行双曲线拟合诊断与绘图
-    fit_hyperbola_diagnostic('fft_results_robust.csv')
+    fit_hyperbola_diagnostic('data/processed/fft_results_robust.csv')

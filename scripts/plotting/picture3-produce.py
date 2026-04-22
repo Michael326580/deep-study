@@ -45,12 +45,12 @@ def set_pub_style():
 
 def load_data_final():
     # 【核心修改】优先读取修复后的结果
-    if os.path.exists('fixed_results.csv'):
+    if os.path.exists('data/processed/fixed_results.csv'):
         print("✅ 读取精修数据: fixed_results.csv")
-        return pd.read_csv('fixed_results.csv')
-    elif os.path.exists('clean_data.csv'):
+        return pd.read_csv('data/processed/fixed_results.csv')
+    elif os.path.exists('data/processed/clean_data.csv'):
         print("⚠️ 未找到修复数据，读取 clean_data.csv")
-        return pd.read_csv('clean_data.csv')
+        return pd.read_csv('data/processed/clean_data.csv')
     else:
         print("❌ 没找到数据文件！")
         return pd.DataFrame()

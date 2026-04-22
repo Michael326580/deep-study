@@ -9,10 +9,10 @@ import pandas as pd
 
 # 读取老师数据去做数据集：对应 fixed_results.csv 里的高精度结果，做成 dataset_distill.npz
 # ================= 默认配置（可由命令行参数覆盖） =================
-DEFAULT_RAW_DATA_FOLDER =r"D:\桌面\deep study\1.22"
-DEFAULT_LABEL_CSV = "fixed_results.csv"
-DEFAULT_SAVE_PATH = "dataset_distill.npz"
-DEFAULT_META_PATH = "dataset_distill_meta.csv"
+DEFAULT_RAW_DATA_FOLDER = "data/raw/1.22"
+DEFAULT_LABEL_CSV = "data/processed/fixed_results.csv"
+DEFAULT_SAVE_PATH = "data/processed/dataset_distill.npz"
+DEFAULT_META_PATH = "data/processed/dataset_distill_meta.csv"
 DEFAULT_SEQ_LEN = 2048
 DEFAULT_MIN_SEG_LEN = 2000
 DEFAULT_SCALE = 16383.0

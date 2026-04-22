@@ -372,14 +372,14 @@ def write_captions_and_latex(out_dir: Path):
 % =========================
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=0.96\textwidth]{paper_outputs/fig01_position_error_curves_doublecol.pdf}
+  \includegraphics[width=0.96\textwidth]{results/paper_outputs/fig01_position_error_curves_doublecol.pdf}
   \caption{Position-error curves of Teacher, Student, and Plain FFT across the validation positions. All methods are evaluated on the same file set and mapped with one shared calibration model.}
   \label{fig:pos_err}
 \end{figure*}
 
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=0.96\textwidth]{paper_outputs/fig02_error_distribution_doublecol.pdf}
+  \includegraphics[width=0.96\textwidth]{results/paper_outputs/fig02_error_distribution_doublecol.pdf}
   \caption{Error-distribution comparison for Teacher, Student, and Plain FFT: (a) empirical CDF of absolute position error; (b) boxplot of absolute position error.}
   \label{fig:err_dist}
 \end{figure*}
@@ -387,15 +387,15 @@ def write_captions_and_latex(out_dir: Path):
 % Figure 3 is intentionally omitted unless traceable latency inputs exist for Teacher/Student/Plain FFT.
 
 % Tables (main text)
-\input{paper_outputs/table01_main_quantitative_comparison.tex}
-\input{paper_outputs/table02_compact_speed_accuracy.tex}
+\input{results/paper_outputs/table01_main_quantitative_comparison.tex}
+\input{results/paper_outputs/table02_compact_speed_accuracy.tex}
 
 % =========================
 % Supplementary
 % =========================
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.95\columnwidth]{paper_outputs/fig04_summary_bars_singlecol.pdf}
+  \includegraphics[width=0.95\columnwidth]{results/paper_outputs/fig04_summary_bars_singlecol.pdf}
   \caption{Grouped comparison of MAE, RMSE, and MaxAE for Teacher, Student, and Plain FFT (supplementary).}
   \label{fig:summary_bars_supp}
 \end{figure}
@@ -487,7 +487,7 @@ def write_qc_checklist(out_dir: Path):
 def main():
     p = argparse.ArgumentParser(description="Generate MST-ready 3-method figures/tables")
     p.add_argument("--repo-root", type=Path, default=Path("."))
-    p.add_argument("--out-dir", type=Path, default=Path("paper_outputs"))
+    p.add_argument("--out-dir", type=Path, default=Path("results/paper_outputs"))
     p.add_argument("--teacher-latency-ms", type=float, default=float("nan"))
     p.add_argument("--student-latency-ms", type=float, default=float("nan"))
     p.add_argument("--single-col-cm", type=float, default=8.5)

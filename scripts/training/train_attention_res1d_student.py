@@ -27,15 +27,15 @@ Key features:
 
 Usage examples:
   python train_attention_res1d_student.py train \
-      --npz dataset_distill.npz \
-      --meta grouped_dataset_metadata.csv \
-      --out-dir runs/attn_res1d
+      --npz data/processed/dataset_distill.npz \
+      --meta data/processed/grouped_dataset_metadata.csv \
+      --out-dir results/models/runs/attn_res1d
 
   python train_attention_res1d_student.py infer \
-      --checkpoint runs/attn_res1d/best_attention_res1d.pth \
-      --npz dataset_distill.npz \
-      --meta grouped_dataset_metadata.csv \
-      --save-csv runs/attn_res1d/infer_all.csv
+      --checkpoint results/models/runs/attn_res1d/best_attention_res1d.pth \
+      --npz data/processed/dataset_distill.npz \
+      --meta data/processed/grouped_dataset_metadata.csv \
+      --save-csv results/models/runs/attn_res1d/infer_all.csv
 """
 
 from __future__ import annotations
@@ -366,8 +366,8 @@ def train(args: argparse.Namespace) -> None:
     npz_path = Path(args.npz)
     meta_path = Path(args.meta)
     if not meta_path.exists():
-        alt_meta = Path("dataset_distill_meta.csv")
-        if str(args.meta) == "grouped_dataset_metadata.csv" and alt_meta.exists():
+        alt_meta = Path("data/processed/dataset_distill_meta.csv")
+        if str(args.meta) in {"grouped_dataset_metadata.csv", "data/processed/grouped_dataset_metadata.csv"} and alt_meta.exists():
             print(
                 "[INFO] Metadata CSV not found at grouped_dataset_metadata.csv; "
                 "fallback to dataset_distill_meta.csv"
@@ -626,8 +626,8 @@ def infer(args: argparse.Namespace) -> None:
     npz_path = Path(args.npz)
     meta_path = Path(args.meta)
     if not meta_path.exists():
-        alt_meta = Path("dataset_distill_meta.csv")
-        if str(args.meta) == "grouped_dataset_metadata.csv" and alt_meta.exists():
+        alt_meta = Path("data/processed/dataset_distill_meta.csv")
+        if str(args.meta) in {"grouped_dataset_metadata.csv", "data/processed/grouped_dataset_metadata.csv"} and alt_meta.exists():
             print(
                 "[INFO] Metadata CSV not found at grouped_dataset_metadata.csv; "
                 "fallback to dataset_distill_meta.csv"
@@ -705,9 +705,9 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_train = sub.add_parser("train", help="Train model")
-    p_train.add_argument("--npz", type=str, default="dataset_distill.npz")
+    p_train.add_argument("--npz", type=str, default="data/processed/dataset_distill.npz")
     p_train.add_argument("--meta", type=str, default="dataset_distill_meta.csv")
-    p_train.add_argument("--out-dir", type=str, default="runs/attention_res1d")
+    p_train.add_argument("--out-dir", type=str, default="results/models/runs/attention_res1d")
 
     p_train.add_argument("--seed", type=int, default=42)
     p_train.add_argument("--val-ratio", type=float, default=0.2)
@@ -745,7 +745,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_infer = sub.add_parser("infer", help="Run inference")
     p_infer.add_argument("--checkpoint", type=str, required=True)
-    p_infer.add_argument("--npz", type=str, default="dataset_distill.npz")
+    p_infer.add_argument("--npz", type=str, default="data/processed/dataset_distill.npz")
     p_infer.add_argument("--meta", type=str, default="dataset_distill_meta.csv")
     p_infer.add_argument("--batch-size", type=int, default=256)
     p_infer.add_argument("--save-csv", type=str, default="")
