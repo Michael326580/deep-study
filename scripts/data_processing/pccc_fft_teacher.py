@@ -257,7 +257,7 @@ def process_batch_all(folder_path):
         res_df = pd.DataFrame(results).dropna()
         Path('data/processed').mkdir(parents=True, exist_ok=True)
         res_df.to_csv('data/processed/fft_results_robust.csv', index=False)
-        print(f"\n✅ 成功结果已保存: fft_results.csv (共 {len(res_df)} 条)")
+        print(f"\n✅ 成功结果已保存: data/processed/fft_results_robust.csv (共 {len(res_df)} 条)")
     
     if failures:
         fail_df = pd.DataFrame(failures)

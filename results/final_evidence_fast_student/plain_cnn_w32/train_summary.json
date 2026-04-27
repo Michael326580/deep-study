@@ -1,0 +1,23 @@
+{
+  "model_name": "plain_cnn_w32",
+  "best_epoch": 214,
+  "params": 105857,
+  "macs": 24707200,
+  "macs_million": 24.7072,
+  "epoch": 214,
+  "lr": 2.405283468241633e-05,
+  "train_loss": 2.7095966758227045e-05,
+  "val_loss": 4.202006579400455e-05,
+  "seg_width_mae": 0.02813330320554359,
+  "file_width_mae": 0.01848328862871451,
+  "pos_mae": 0.10457746046598913,
+  "pos_rmse": 0.1450604019230613,
+  "pos_maxae": 0.61576629492356,
+  "mean_ms": 1.1755515,
+  "median_ms": 1.1261,
+  "p95_ms": 1.4881399999999998,
+  "min_ms": 1.042,
+  "max_ms": 2.0619,
+  "checkpoint": "D:\\桌面\\deep study\\results\\models\\runs\\fast_student_ablation\\plain_cnn_w32\\best_plain_cnn_w32.pth",
+  "out_dir": "D:\\桌面\\deep study\\results\\models\\runs\\fast_student_ablation\\plain_cnn_w32"
+}

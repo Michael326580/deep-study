@@ -1,0 +1,8 @@
+{
+  "model_name": "DeepAttnRes1DRegressor (最优模型)",
+  "mean_latency_ms": 5.3658,
+  "std_ms": 0.4262,
+  "test_times": 100,
+  "device": "cpu",
+  "input_shape": "[1, 2, 1024]"
+}

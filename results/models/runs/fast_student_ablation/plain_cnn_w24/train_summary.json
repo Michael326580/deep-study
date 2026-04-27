@@ -1,0 +1,23 @@
+{
+  "model_name": "plain_cnn_w24",
+  "best_epoch": 218,
+  "params": 59809,
+  "macs": 14008416,
+  "macs_million": 14.008416,
+  "epoch": 218,
+  "lr": 1.009991275709364e-05,
+  "train_loss": 3.8253204640276825e-05,
+  "val_loss": 3.3538280069827284e-05,
+  "seg_width_mae": 0.02826169049628427,
+  "file_width_mae": 0.019338932075197768,
+  "pos_mae": 0.09935619156009494,
+  "pos_rmse": 0.14097812790237566,
+  "pos_maxae": 0.6235560873229815,
+  "mean_ms": 0.8897762,
+  "median_ms": 0.84735,
+  "p95_ms": 1.0976499999999998,
+  "min_ms": 0.8161,
+  "max_ms": 1.8311,
+  "checkpoint": "D:\\桌面\\deep study\\results\\models\\runs\\fast_student_ablation\\plain_cnn_w24\\best_plain_cnn_w24.pth",
+  "out_dir": "D:\\桌面\\deep study\\results\\models\\runs\\fast_student_ablation\\plain_cnn_w24"
+}

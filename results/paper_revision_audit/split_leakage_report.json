@@ -1,0 +1,9 @@
+{
+  "run": "attention_res1d_model",
+  "n_all_files": 500,
+  "n_val_files": 100,
+  "n_inferred_train_files": 400,
+  "overlap_count": 0,
+  "overlap_files": [],
+  "note": "This checks leakage based on available output files. For complete proof, save train_files and val_files during training."
+}

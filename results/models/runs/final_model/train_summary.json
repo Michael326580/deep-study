@@ -1,8 +1,0 @@
-{
-  "best_epoch": 2,
-  "best_file_mae": 0.3052870007166786,
-  "checkpoint": "runs\\final_model\\best_attention_res1d.pth",
-  "last_checkpoint": "runs\\final_model\\last_attention_res1d.pth",
-  "history_csv": "runs\\final_model\\train_history.csv",
-  "best_val_pred_csv": "runs\\final_model\\best_val_predictions.csv"
-}

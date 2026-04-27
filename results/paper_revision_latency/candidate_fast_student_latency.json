@@ -1,0 +1,72 @@
+{
+  "purpose": "latency screening for lightweight student candidates; not accuracy evidence",
+  "input_shape": [
+    1,
+    2,
+    2048
+  ],
+  "env": {
+    "python": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "torch": "2.10.0+cpu",
+    "device": "cpu",
+    "threads": 1
+  },
+  "rows": [
+    {
+      "name": "tiny_dw_w8_d3",
+      "params": 1241,
+      "macs": 230944,
+      "macs_million": 0.230944,
+      "mean_ms": 0.9904658000000001,
+      "median_ms": 0.84305,
+      "p95_ms": 1.7636099999999997,
+      "min_ms": 0.7099,
+      "max_ms": 2.576
+    },
+    {
+      "name": "tiny_dw_w8_d4",
+      "params": 1673,
+      "macs": 278048,
+      "macs_million": 0.278048,
+      "mean_ms": 1.5711345,
+      "median_ms": 1.49775,
+      "p95_ms": 2.473995,
+      "min_ms": 0.9442,
+      "max_ms": 5.5626
+    },
+    {
+      "name": "tiny_dw_w16_d4",
+      "params": 4305,
+      "macs": 752672,
+      "macs_million": 0.752672,
+      "mean_ms": 1.8464966999999999,
+      "median_ms": 1.7024,
+      "p95_ms": 3.056294999999999,
+      "min_ms": 1.0209,
+      "max_ms": 6.4845
+    },
+    {
+      "name": "plain_cnn_w8",
+      "params": 6881,
+      "macs": 1654816,
+      "macs_million": 1.654816,
+      "mean_ms": 0.6617516000000001,
+      "median_ms": 0.6324,
+      "p95_ms": 1.072085,
+      "min_ms": 0.4161,
+      "max_ms": 1.6291
+    },
+    {
+      "name": "plain_cnn_w16",
+      "params": 26817,
+      "macs": 6324288,
+      "macs_million": 6.324288,
+      "mean_ms": 0.9216375,
+      "median_ms": 0.879,
+      "p95_ms": 1.49193,
+      "min_ms": 0.6032,
+      "max_ms": 2.5167
+    }
+  ]
+}

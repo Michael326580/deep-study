@@ -1,0 +1,189 @@
+{
+  "status": "traceable_benchmark_v2",
+  "repository_root": "D:\\桌面\\deep study",
+  "checkpoint": "D:\\桌面\\deep study\\results\\models\\runs\\attention_res1d_model\\best_attention_res1d.pth",
+  "model_config": {
+    "name": "DeepAttnRes1DRegressor",
+    "base_width": 32,
+    "dropout": 0.15
+  },
+  "input_source": "real sample from D:\\桌面\\deep study\\data\\processed\\dataset_distill.npz",
+  "required_input_shape_batch1": [
+    1,
+    2,
+    2048
+  ],
+  "environment": {
+    "python": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+    "torch": "2.10.0+cpu",
+    "device": "cpu",
+    "cuda_available": false,
+    "cuda_device_name": "NA",
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "precision": "FP32"
+  },
+  "student_model": {
+    "num_parameters": 1304001,
+    "estimated_macs_batch1": 111684736,
+    "estimated_macs_batch1_million": 111.684736
+  },
+  "student_latency": {
+    "pytorch_eager": [
+      {
+        "mean_ms": 10.770097300000002,
+        "std_ms": 2.1436884535931937,
+        "median_ms": 9.7025,
+        "p05_ms": 8.681700000000001,
+        "p95_ms": 14.94828,
+        "min_ms": 8.2612,
+        "max_ms": 16.167,
+        "batch_size": 1,
+        "latency_per_sample_mean_ms": 10.770097300000002,
+        "latency_per_sample_median_ms": 9.7025,
+        "throughput_samples_per_s_mean": 92.84967184094054,
+        "repeat": 1000,
+        "warmup": 100,
+        "input_shape": [
+          1,
+          2,
+          2048
+        ]
+      },
+      {
+        "mean_ms": 41.163521200000005,
+        "std_ms": 4.542460804153166,
+        "median_ms": 39.1806,
+        "p05_ms": 37.177335,
+        "p95_ms": 50.78018999999999,
+        "min_ms": 36.1436,
+        "max_ms": 61.3271,
+        "batch_size": 8,
+        "latency_per_sample_mean_ms": 5.145440150000001,
+        "latency_per_sample_median_ms": 4.897575,
+        "throughput_samples_per_s_mean": 194.34683347740423,
+        "repeat": 1000,
+        "warmup": 100,
+        "input_shape": [
+          8,
+          2,
+          2048
+        ]
+      },
+      {
+        "mean_ms": 158.3295808,
+        "std_ms": 25.874891999997658,
+        "median_ms": 156.08945,
+        "p05_ms": 120.63192,
+        "p95_ms": 202.94124499999998,
+        "min_ms": 110.9559,
+        "max_ms": 292.8667,
+        "batch_size": 32,
+        "latency_per_sample_mean_ms": 4.9477994,
+        "latency_per_sample_median_ms": 4.8777953125,
+        "throughput_samples_per_s_mean": 202.11005320870527,
+        "repeat": 1000,
+        "warmup": 100,
+        "input_shape": [
+          32,
+          2,
+          2048
+        ]
+      }
+    ],
+    "torchscript_frozen": [
+      {
+        "mean_ms": 7.0034256,
+        "std_ms": 1.4611202291696357,
+        "median_ms": 6.970700000000001,
+        "p05_ms": 4.857705,
+        "p95_ms": 9.467645,
+        "min_ms": 4.4481,
+        "max_ms": 13.8288,
+        "batch_size": 1,
+        "latency_per_sample_mean_ms": 7.0034256,
+        "latency_per_sample_median_ms": 6.970700000000001,
+        "throughput_samples_per_s_mean": 142.78726684838347,
+        "repeat": 1000,
+        "warmup": 100,
+        "input_shape": [
+          1,
+          2,
+          2048
+        ]
+      },
+      {
+        "mean_ms": 33.7102454,
+        "std_ms": 6.768211725118746,
+        "median_ms": 31.6716,
+        "p05_ms": 26.44631,
+        "p95_ms": 46.18706,
+        "min_ms": 24.7393,
+        "max_ms": 74.1324,
+        "batch_size": 8,
+        "latency_per_sample_mean_ms": 4.213780675,
+        "latency_per_sample_median_ms": 3.95895,
+        "throughput_samples_per_s_mean": 237.3165755714137,
+        "repeat": 1000,
+        "warmup": 100,
+        "input_shape": [
+          8,
+          2,
+          2048
+        ]
+      },
+      {
+        "mean_ms": 148.216507,
+        "std_ms": 28.009843560631356,
+        "median_ms": 143.40055,
+        "p05_ms": 119.25291,
+        "p95_ms": 203.81431,
+        "min_ms": 114.1455,
+        "max_ms": 294.8749,
+        "batch_size": 32,
+        "latency_per_sample_mean_ms": 4.63176584375,
+        "latency_per_sample_median_ms": 4.4812671875,
+        "throughput_samples_per_s_mean": 215.90037876145604,
+        "repeat": 1000,
+        "warmup": 100,
+        "input_shape": [
+          32,
+          2,
+          2048
+        ]
+      }
+    ]
+  },
+  "teacher_core_latency": {
+    "mean_ms": 0.9832155,
+    "std_ms": 0.2989642751211986,
+    "median_ms": 0.90835,
+    "p05_ms": 0.705195,
+    "p95_ms": 1.6845149999999989,
+    "min_ms": 0.666,
+    "max_ms": 2.0851,
+    "available": true,
+    "source": "D:\\桌面\\deep study\\data\\processed\\dataset_distill.npz",
+    "repeat": 200,
+    "warmup": 20
+  },
+  "teacher_file_latency": {
+    "mean_ms": 18.23617,
+    "std_ms": 2.5563223839397837,
+    "median_ms": 17.7163,
+    "p05_ms": 14.464550000000001,
+    "p95_ms": 22.869125,
+    "min_ms": 13.81,
+    "max_ms": 23.1337,
+    "available": true,
+    "n_files": 20,
+    "raw_dir": "D:\\桌面\\deep study\\data\\raw\\1.22"
+  },
+  "warnings": [
+    "Do not cite speedup unless teacher and student are measured on the same hardware and same input/data protocol.",
+    "Do not cite microsecond-level latency unless the measured report actually supports it.",
+    "The paper/data package requires 2 x 2048 input; [1,2,1024] timing is not valid for the current manuscript."
+  ]
+}

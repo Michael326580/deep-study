@@ -1,0 +1,89 @@
+{
+  "fixed_results": {
+    "n": 500,
+    "position_range_mm": [
+      180.0,
+      229.9
+    ],
+    "width_range_pixel": [
+      18.612484766984785,
+      28.93550486328443
+    ],
+    "width_mean_pixel": 23.013814909773515
+  },
+  "dataset_distill_meta": {
+    "n_segments": 4310,
+    "position_range_mm": [
+      180.0,
+      229.9
+    ],
+    "teacher_width_range_pixel": [
+      18.612484,
+      28.935505
+    ],
+    "teacher_width_mean_pixel": 23.027168620185613
+  },
+  "grouped_val_comparison": {
+    "n_files": 100,
+    "teacher_mae_mm": 0.06796375461998448,
+    "teacher_maxae_mm": 0.298626421318005,
+    "student_mae_mm": 0.11703745760044565,
+    "student_maxae_mm": 0.5696371996716323,
+    "teacher_3sigma_n": 99,
+    "student_3sigma_n": 98
+  },
+  "paper_table01": [
+    {
+      "Method": "Teacher",
+      "Width MAE (pixel)": 0.0,
+      "Position MAE (mm)": 0.0678,
+      "Position RMSE (mm)": 0.0858,
+      "Position MaxAE (mm)": 0.2999,
+      "Latency (ms)": NaN
+    },
+    {
+      "Method": "Student",
+      "Width MAE (pixel)": 0.0,
+      "Position MAE (mm)": 0.1166,
+      "Position RMSE (mm)": 0.153,
+      "Position MaxAE (mm)": 0.5641,
+      "Latency (ms)": NaN
+    },
+    {
+      "Method": "Plain FFT",
+      "Width MAE (pixel)": 0.0397,
+      "Position MAE (mm)": 0.1761,
+      "Position RMSE (mm)": 0.2088,
+      "Position MaxAE (mm)": 0.7149,
+      "Latency (ms)": 3.166
+    }
+  ],
+  "target_number_conflicts": {
+    "single_student_mae_mm": {
+      "target": 0.0264,
+      "current_grouped_val": 0.11703745760044565,
+      "status": "conflict"
+    },
+    "latency_ms": {
+      "target": 0.04,
+      "current_traceable": "not available in table01 for Student",
+      "status": "missing timing log"
+    }
+  },
+  "attention_res1d_model": {
+    "best_epoch": 92,
+    "best_file_mae": 0.043368001778920376,
+    "checkpoint": "runs\\attention_res1d\\best_attention_res1d.pth",
+    "last_checkpoint": "runs\\attention_res1d\\last_attention_res1d.pth",
+    "history_csv": "runs\\attention_res1d\\train_history.csv",
+    "best_val_pred_csv": "runs\\attention_res1d\\best_val_predictions.csv"
+  },
+  "final_model": {
+    "best_epoch": 2,
+    "best_file_mae": 0.3052870007166786,
+    "checkpoint": "runs\\final_model\\best_attention_res1d.pth",
+    "last_checkpoint": "runs\\final_model\\last_attention_res1d.pth",
+    "history_csv": "runs\\final_model\\train_history.csv",
+    "best_val_pred_csv": "runs\\final_model\\best_val_predictions.csv"
+  }
+}

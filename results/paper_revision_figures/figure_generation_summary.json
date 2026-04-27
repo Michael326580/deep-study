@@ -1,0 +1,11 @@
+{
+  "hyperbola": {
+    "A": 0.0004020600231139548,
+    "B": -0.0372600116338075,
+    "C": 0.48420493776913526,
+    "R2": 0.9999559832319427
+  },
+  "residual_mae_pixel": 0.014839020462131813,
+  "residual_maxae_pixel": 0.10564949378440858,
+  "output_dir": "D:\\桌面\\deep study\\results\\paper_revision_figures"
+}

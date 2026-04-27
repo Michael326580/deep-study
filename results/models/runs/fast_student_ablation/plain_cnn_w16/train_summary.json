@@ -1,0 +1,33 @@
+{
+  "model_name": "plain_cnn_w16",
+  "params": 26817,
+  "macs": 6324288,
+  "macs_million": 6.324288,
+  "best_epoch": 102,
+  "train_loss": 0.0001141986826211,
+  "val_loss": 3.800731523131906e-05,
+  "seg_width_mae": 0.0321368658654043,
+  "file_width_mae": 0.0246943104077898,
+  "pos_mae": 0.1306670258679022,
+  "pos_rmse": 0.1841750972974966,
+  "pos_maxae": 0.6322589394497982,
+  "mean_ms": 0.6566279,
+  "median_ms": 0.6052,
+  "p95_ms": 0.9885399999999999,
+  "min_ms": 0.5954,
+  "max_ms": 1.5205,
+  "checkpoint": "D:\\桌面\\deep study\\results\\models\\runs\\fast_student_ablation\\plain_cnn_w16\\best_plain_cnn_w16.pth",
+  "out_dir": "D:\\桌面\\deep study\\results\\models\\runs\\fast_student_ablation\\plain_cnn_w16",
+  "recovered_after_torch26_load_error": true,
+  "torch_version": "2.10.0+cpu",
+  "python_version": "3.13.5",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "device": "cpu",
+  "threads": 1,
+  "input_shape": [
+    1,
+    2,
+    2048
+  ],
+  "notes": "Recovered with torch.load(..., weights_only=False) from a locally generated checkpoint."
+}
